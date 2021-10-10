@@ -1,45 +1,56 @@
 <template>
   <div id="app">
-    <h2>To Do list</h2>
-    <input type="text" placeholder="Add something..." @keyup.enter="addToDo" v-model="tarea">
-    <button @click="addToDo">Add Task</button>
+    <div class="main-title">
+      <h2>TO DO LIST</h2>
+    </div>
+    <el-input type="text" placeholder="Add something..."
+      @keyup.enter.native="addToDo" v-model="tarea" class="input" style="width: 30%;" maxlength="20" show-word-limit>
+    </el-input>
+    <el-button @click="addToDo" type="primary" class="addButton">Add Task</el-button>
     <hr>
-    <h2>List</h2>
-    <ul>
-      <li v-for="(item, index) in newTask" :key="index">
-        <!-- EDITING PART -->
-        <div v-if="!item.editing">
-          <p>{{item.titulo}}</p>
-          <button @click="enableEditing (item)">Edit</button>
-          <button @click="changeCompletado (item)">Completed</button>
-          <button @click="deleteTask (index)">Delete</button>
+    <el-row :gutter="20">
+      <el-col :span="10">
+        <div class="grid-content bg-purple">
+          <h2 class="title">List <i class="el-icon-s-order"></i></h2>
+          <ul>
+            <span v-for="(item, index) in newTask" :key="index">
+              <!-- EDITING PART -->
+              <div class="main-item" v-if="!item.editing">
+                <p>{{item.titulo}}</p>
+                <div class="buttons">
+                  <el-button @click="changeCompletado (item)" type="success" icon="el-icon-check" circle></el-button>
+                  <el-button @click="enableEditing (item)" type="primary" icon="el-icon-edit" circle></el-button>
+                  <el-button @click="deleteTask (item)" type="danger" icon="el-icon-delete" circle></el-button>
+                </div>
+              </div>
+              <div class="edit" v-if="item.editing">
+                <div class="buttons-edit">
+                  <el-input type="text" v-model="item.titulo" style="width: 50%" class="input"></el-input>
+                  <el-button type="success" style="margin-left: 10px" @click="saveEdit (item)"> Save </el-button>
+                  <el-button type="info" @click="disableEditing (item)"> Cancel </el-button>
+                </div>
+              </div>
+            </span>
+          </ul>
         </div>
-        <div v-if="item.editing">
-          <input v-model="item.titulo" class="input"/>
-          <button @click="disableEditing (item)"> Cancel </button>
-          <button @click="saveEdit (item)"> Save </button>
+      </el-col>
+      <!-- <hr> -->
+      <el-col :span="10">
+        <div class="grid-content bg-purple">
+          <h2 class="title">Tasks Completed <i class="el-icon-s-claim"></i></h2>
+          <ul>
+            <li v-for="(completed, index) in completedTask" :key="index">
+              <!-- EDITING PART -->
+              <div v-if="!completed.editing">
+                <p>{{completed.titulo}}</p>
+                <el-button @click="undoneTask (completed)" type="warning" icon="el-icon-close" circle></el-button>
+                <el-button @click="deleteTask (completed)" type="danger" icon="el-icon-delete" circle></el-button>
+              </div>
+            </li>
+          </ul>
         </div>
-      </li>
-    </ul>
-    <hr>
-    <h2>Tasks Completed</h2>
-    <ul>
-      <li v-for="(completed, index) in completedTask" :key="index">
-        <!-- EDITING PART -->
-        <div v-if="!completed.editing">
-          <p>{{completed.titulo}}</p>
-          <button @click="enableEditing (completed)">Edit</button>
-          <button @click="undoneTask (completed)">Not Completed</button>
-          <button @click="deleteTask (index)">Delete</button>
-        </div>
-        <div v-if="completed.editing">
-          <input v-model="completed.titulo"/>
-          <button @click="disableEditing"> Cancel </button>
-          <button @click="saveEdit"> Save </button>
-        </div>
-      </li>
-    </ul>
-    <hr>
+      </el-col>
+    </el-row>
   </div>
 </template>
 
@@ -53,12 +64,12 @@ export default {
   data() {
     return {
       tarea: '',
-      tareaTemporal: null,
       list: [
         {
           titulo: 'Practicar Vue JS',
           completado: false,
-          editing: false
+          editing: false,
+          tareaTemporal: null
         }
       ]
     }
@@ -70,7 +81,7 @@ export default {
           position: 'bottom'
         })
       } else {
-        this.list.push({ titulo: this.tarea, completado: false, editing: false })
+        this.list.push({ titulo: this.tarea, completado: false, editing: false, tareaTemporal: null })
         this.$toast.info('Task Added', {
           position: 'bottom'
         })
@@ -90,7 +101,8 @@ export default {
       })
     },
     deleteTask(task) {
-      this.list.splice(task, 1)
+      const index = this.list.indexOf(task)
+      this.list.splice(index, 1)
       this.$toast.error('Task Deleted', {
         position: 'bottom'
       })
@@ -128,11 +140,59 @@ export default {
 </script>
 
 <style>
-#app {
-  margin: 50px;
+*{
+  margin: 0;
+  padding: 0;
+}
+.main-title{
+  background-color: rgb(89, 177, 94);
+  padding: 20px 20px 20px 80px;
+  color: white;
+  margin-bottom: 20px;
 }
 ul {
+  /* display:flex;
+  flex-direction: column; */
+}
+.el-row {
+    position: absolute;
+    left: 50%;
+    transform: translate(-41%, 0);
+  }
+.bg-purple {
+    margin-top: 20px;
+    background: #d3dce6;
+    padding: 10px 10px 10px 20px;
+}
+.grid-content {
+  border-radius: 10px;
+}
+.title{
+  text-align: center;
+  font-size: 30px;
+  text-transform: uppercase;
+}
+.main-item{
   display:flex;
-  flex-direction: column;
+  align-items: center;
+  margin-top: 30px;
+}
+.main-item p{
+  font-size: 25px;
+  margin-left: 10%;
+  width: 200px;
+}
+.buttons{
+  margin-left: 50px;
+}
+.edit{
+  display: flex;
+  align-content: center;
+}
+.buttons-edit{
+  margin-top: 10px;
+}
+.input{
+  margin: 0px 10px 20px 30px;
 }
 </style>
