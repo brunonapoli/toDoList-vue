@@ -20,7 +20,7 @@ npm run build
 npm run lint
 ``` -->
 
-# To Do List with Vue Js
+# To Do List 📜
 
 > A to do list using Vue.js 2.0 and Element Ui.
 
@@ -29,7 +29,8 @@ npm run lint
 ```bash
 # Install dependencies
 npm install
-# Start Vue DevServer: http://localhost:8080
+
+# Start Vue App: http://localhost:8080
 npm run serve
 ```
 
