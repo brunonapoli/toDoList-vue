@@ -13,7 +13,6 @@
 </template>
 
 <script>
-// import Vue from 'vue'
 export default {
   props: {
     msg: String,
@@ -21,7 +20,6 @@ export default {
   },
   data() {
     return {
-      // value: '',
       tempValue: '',
       editing: false
     }

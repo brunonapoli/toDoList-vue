@@ -60,16 +60,18 @@
         </div>
       </el-col>
     </el-row>
+    <Footer />
   </div>
 </template>
 
 <script>
-// import List from '../src/components/List.vue'
+import Footer from './components/Footer.vue'
+
 export default {
   name: 'App',
-  // components: {
-  //   List
-  // },
+  components: {
+    Footer
+  },
   data() {
     return {
       tarea: '',
@@ -161,13 +163,14 @@ body{
 .main-title{
   background-color: rgb(89, 177, 94);
   padding: 20px 20px 20px 80px;
-  color: white;
+  color: rgb(255, 255, 255);
   margin-bottom: 20px;
 }
 .el-row {
     position: absolute;
     left: 50%;
     transform: translate(-41%, 0);
+    width: 85%;
   }
 .bg-purple {
     margin-top: 20px;
@@ -200,7 +203,7 @@ body{
 .main-item p{
   font-size: 25px;
   margin-left: 6%;
-  width: 270px;
+  width: 230px;
 }
 .edit-item{
   display:flex;
@@ -216,9 +219,9 @@ body{
   right: 50px;
   width: 60%
 }
-.buttons{
-  margin-left: 50px;
-}
+/* .buttons{ */
+  /* margin-left: 50px; */
+/* } */
 .edit{
   display: flex;
   align-items: center;
@@ -273,7 +276,7 @@ body{
     margin-left: 40px;
   }
   .el-row{
-    left: 60%;
+    left: 45%;
   }
 }
 @media only screen and (max-width: 500px){
@@ -295,7 +298,7 @@ body{
     font-size: 15px;
   }
   .el-row{
-    left: 68%;
+    left: 50%;
   }
   .edit{
     flex-direction: column;
