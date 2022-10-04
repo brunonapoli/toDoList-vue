@@ -1,10 +1,22 @@
 # To Do List 📜
+![](https://badgen.net/badge/release%20date/july-2021/green)
+![](https://badgen.net/badge/version/1.0.0/purple)
 
-> <h2> A to do list using Vue.js 2.0 and Element Ui. </h2>
+## App Info
+A to do list where you can add, edit and delete your tasks of the day.
+
+[Click here to see the page](https://todolist-vue-app.herokuapp.com/)
+
+
+## Language
+>Vue.js - Element UI
 
 ## Quick Start
 
 ```bash
+#Clone repository
+git clone https://github.com/brunonapoli/toDoList-vue
+
 # Install dependencies
 npm install
 
@@ -12,9 +24,6 @@ npm install
 npm run serve
 ```
 
-## App Info
-
-> A to do list where you can add, edit and delete your tasks of the day.
 
 ### Preview
 
@@ -22,4 +31,4 @@ npm run serve
 
 ### Author
 
-Napoli Bruno
+>Napoli Bruno
